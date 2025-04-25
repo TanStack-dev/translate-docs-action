@@ -98,6 +98,32 @@ jobs:
 | `pr_body` | Body text for the PR | No | Default message |
 | `commit_message` | Commit message for the translation changes | No | 'docs: update documentation translations' |
 
+## Q&A
+
+### Why are my translated Spanish docs not showing in the PR?
+
+This is often due to `.gitignore` patterns that exclude build folders with language codes like `es` (Spanish). If you have a line like `es` in your `.gitignore`, it will ignore all folders named `es`, including your translated documentation.
+
+To fix this issue, you should exclude your documentation folders from being ignored by using the negation pattern:
+
+```
+# build files 
+es
+# we don't need to ignore the docs folder
+!docs/es
+```
+
+This ensures that build output directories are ignored, but your Spanish documentation in the `docs/es` directory will be included in your git repository and PRs.
+
+
+### How often should I run the translation job?
+
+For the best cost efficiency, we recommend running the translation job on a schedule during API off-peak pricing windows. For example, DeepSeek API has an off-peak pricing window from 16:30-00:30 UTC.
+
+### Can I manually trigger a translation for a specific language?
+
+Yes, the workflow_dispatch trigger allows you to manually run the action for a specific language by providing the language code as an input.
+
 ## License
 
 MIT

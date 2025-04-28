@@ -92,6 +92,14 @@ runs:
           echo "has_changes=false" >> $GITHUB_OUTPUT
           echo "No changes detected after translation. Exiting workflow."
         fi
+    
+    - name: Setup Tools
+      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'
+      uses: tanstack/config/.github/setup@main
+    
+    - name: Fix formatting
+      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'
+      run: pnpm prettier:write
 
     - name: Create Pull Request
       if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'

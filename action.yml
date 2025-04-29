@@ -99,6 +99,7 @@ runs:
     
     - name: Fix formatting
       if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'
+      shell: bash
       run: pnpm prettier:write
 
     - name: Create Pull Request

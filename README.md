@@ -97,6 +97,7 @@ jobs:
 | `pr_title` | Title for the PR | No | 'Update translations' |
 | `pr_body` | Body text for the PR | No | Default message |
 | `commit_message` | Commit message for the translation changes | No | 'docs: update documentation translations' |
+| `add_paths` | A comma or newline-separated list of file paths to commit. Paths should follow git's pathspec syntax. | No | 'docs/**' |
 
 ## Q&A
 

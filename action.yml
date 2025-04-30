@@ -44,6 +44,10 @@ inputs:
     description: 'Cron schedule for automatic translation (used in workflow template)'
     required: false
     default: '0 20 * * *'
+  add_paths:
+    description: 'A comma or newline-separated list of file paths to commit. Paths should follow git''s pathspec syntax.'
+    required: false
+    default: 'docs/**'
   
 runs:
   using: 'composite'
@@ -116,6 +120,7 @@ runs:
         branch: ${{ inputs.pr_branch }}
         delete-branch: true
         base: ${{ inputs.base_branch }}
+        add-paths: ${{ inputs.add_paths }}
 
 branding:
   icon: 'globe'

@@ -98,6 +98,8 @@ jobs:
 | `pr_body` | Body text for the PR | No | Default message |
 | `commit_message` | Commit message for the translation changes | No | 'docs: update documentation translations' |
 | `add_paths` | A comma or newline-separated list of file paths to commit. Paths should follow git's pathspec syntax. | No | 'docs/**' |
+| `enable_formatting` | Whether to run code formatting before creating the PR | No | 'true' |
+| `format_command` | The command to run for formatting code | No | 'pnpm prettier:write' |
 
 ## Q&A
 

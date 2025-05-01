@@ -48,6 +48,14 @@ inputs:
     description: 'A comma or newline-separated list of file paths to commit. Paths should follow git''s pathspec syntax.'
     required: false
     default: 'docs/**'
+  enable_formatting:
+    description: 'Whether to run code formatting before creating the PR'
+    required: false
+    default: 'true'
+  format_command:
+    description: 'The command to run for formatting code'
+    required: false
+    default: 'pnpm prettier:write'
   
 runs:
   using: 'composite'
@@ -105,9 +113,9 @@ runs:
       uses: tanstack/config/.github/setup@main
     
     - name: Fix formatting
-      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'
+      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true' && inputs.enable_formatting == 'true'
       shell: bash
-      run: pnpm prettier:write
+      run: ${{ inputs.format_command }}
 
     - name: Create Pull Request
       if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'

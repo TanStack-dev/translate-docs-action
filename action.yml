@@ -109,7 +109,7 @@ runs:
         fi
     
     - name: Setup Tools
-      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true'
+      if: steps.check_branch.outputs.exists == 'false' && steps.check-changes.outputs.has_changes == 'true' && inputs.enable_formatting == 'true'
       uses: tanstack/config/.github/setup@main
     
     - name: Fix formatting

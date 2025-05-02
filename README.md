@@ -6,7 +6,7 @@ A GitHub Action to automatically translate documentation using machine translati
 
 - Automatically translates documentation into multiple languages
 - Creates a pull request with translated content
-- Configurable target languages
+- Fully customizable translation arguments
 - Customizable pull request details
 - Supports scheduled or manual triggering
 
@@ -24,8 +24,8 @@ on:
     - cron: '0 20 * * *'  # Daily at 20:00 UTC (DeepSeek API off-peak pricing window 16:30-00:30 UTC)
   workflow_dispatch:      # Allow manual triggering
     inputs:
-      target_language:
-        description: 'Target language code (e.g., zh-hans, es, fr). Leave empty to translate all languages.'
+      custom_arguments:
+        description: 'Custom arguments to pass to the translation package command'
         required: false
         type: string
 
@@ -41,7 +41,7 @@ jobs:
         uses: TanStack-dev/translate-docs-action@v1
         with:
           api_key: ${{ secrets.OPENAI_API_KEY }}
-          target_language: ${{ github.event.inputs.target_language }}
+          custom_arguments: ${{ github.event.inputs.custom_arguments }}
 ```
 
 ### Advanced Configuration
@@ -54,8 +54,8 @@ on:
     - cron: '0 20 * * *'  # Daily at 20:00 UTC
   workflow_dispatch:      # Allow manual triggering
     inputs:
-      target_language:
-        description: 'Target language code (e.g., zh-hans, es, fr). Leave empty to translate all languages.'
+      custom_arguments:
+        description: 'Custom arguments to pass to the translation package command'
         required: false
         type: string
 
@@ -72,7 +72,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           api_key: ${{ secrets.OPENAI_API_KEY }}
-          target_language: ${{ github.event.inputs.target_language }}
+          custom_arguments: ${{ github.event.inputs.custom_arguments }}
           translation_package: '@your-org/your-translation-package'
           base_branch: 'main'
           pr_branch: 'docs/translations-update'
@@ -88,7 +88,7 @@ jobs:
 
 | Name | Description | Required | Default |
 |------|-------------|:--------:|:-------:|
-| `target_language` | Target language code (e.g., zh-hans, es, fr). Leave empty to translate all languages. | No | '' |
+| `custom_arguments` | Custom arguments to pass to the translation package command | No | '' |
 | `github_token` | GitHub token for creating PRs | No | `${{ github.token }}` |
 | `api_key` | API key for translation service (e.g., OPENAI_API_KEY) | Yes | N/A |
 | `translation_package` | NPM package to use for translation | No | '@tanstack-dev/translate-docs' |

@@ -3,9 +3,10 @@ description: 'Translates documentation files automatically using machine transla
 author: 'TanStack'
 
 inputs:
-  target_language:
-    description: 'Target language code (e.g., zh-hans, es, fr). Leave empty to translate all languages.'
+  custom_arguments:
+    description: 'Custom arguments to pass to the translation package command'
     required: false
+    default: ''
   github_token:
     description: 'GitHub token for creating PRs'
     required: false
@@ -85,13 +86,8 @@ runs:
       if: steps.check_branch.outputs.exists == 'false'
       shell: bash
       run: |
-        if [[ -n "${{ inputs.target_language }}" ]]; then
-          echo "Translating for specific language: ${{ inputs.target_language }}"
-          npx ${{ inputs.translation_package }} -t ${{ inputs.target_language }}
-        else
-          echo "Translating for all languages"
-          npx ${{ inputs.translation_package }}
-        fi
+        echo "Running translation with custom arguments: ${{ inputs.custom_arguments }}"
+        npx ${{ inputs.translation_package }} ${{ inputs.custom_arguments }}
       env:
         OPENAI_API_KEY: ${{ inputs.api_key }}
 

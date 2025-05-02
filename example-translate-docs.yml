@@ -7,8 +7,8 @@ on:
                          # Off-peak window in PT: ~9:30 AM to 5:30 PM PDT / ~8:30 AM to 4:30 PM PST
   workflow_dispatch: # Allow manual triggering
     inputs:
-      target_language:
-        description: 'Target language code (e.g., zh-hans, es, fr). Leave empty to translate all languages.'
+      custom_arguments:
+        description: 'Custom arguments to pass to the translation package command'
         required: false
         type: string
 
@@ -30,7 +30,7 @@ jobs:
           
           # Optional inputs with their default values shown
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          target_language: ${{ github.event.inputs.target_language }}
+          custom_arguments: ${{ github.event.inputs.custom_arguments }}
           # translation_package: '@tanstack-dev/translate-docs'
           # base_branch: 'main'
           # pr_branch: 'docs/update-translations'
